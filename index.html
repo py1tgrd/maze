@@ -1,0 +1,117 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Maze game</title>
+    <link rel="stylesheet" type="text/css" href="mazing.css">
+</head>
+
+<body>  
+  <div class="container">
+    
+    <div id="maze_container"><!-- --></div>
+
+    <div class="modal hidden">
+      <div>Congratulations - You Win!!</div>
+      <div>&#127775;&#127775;&#127775;</div>
+      <button>Play again</button>
+    </div>
+</div>
+<div class="modal-background hidden"></div>
+</body>
+
+
+
+<script src="maze.js"></script>
+<script>
+
+const rows = 4
+const cols = 4
+const maze_container = document.querySelector("#maze_container")
+let max_row_maze = 2*rows+1
+let max_col_maze = 2*cols+1
+
+window.addEventListener('load',()=>makeMaze())
+
+
+
+
+function makeMaze()
+{
+
+  let Maze = new MazeBuilder(rows, cols);
+  Maze.display("maze_container");
+
+  maze_container.addEventListener("click",function(ev){
+    
+    let {row, column} = ev.target.dataset
+
+
+
+    if(adjacentSelected(Number(row), Number(column))){
+      ev.target.classList.add("red")
+
+      //check if won:
+      if (ev.target.classList.contains("exit")){
+        document.querySelector(".modal").classList.remove("hidden");
+        document.querySelector(".modal-background").classList.remove("hidden");
+      }
+    }
+
+  });
+
+
+}
+
+  function adjacentSelected(row,col){
+    
+    let adjacentSelected = false
+
+
+    const checkFunction = (r,c) => {
+      // console.log(maze_container.childNodes[0].childNodes[r].childNodes[c].dataset)
+      return (maze_container.childNodes[0].childNodes[r].childNodes[c].
+        classList.contains("red") || 
+        maze_container.childNodes[0].childNodes[r].childNodes[c].
+        classList.contains("entrance"))
+    } 
+
+    
+    if(row > 0){
+      adjacentSelected |= checkFunction(row - 1, col)
+    }
+
+    if(row < max_row_maze-1){
+      adjacentSelected |= checkFunction(row + 1, col)
+    }
+
+    if(col > 0){
+      adjacentSelected |= checkFunction(row, col - 1)
+    }
+
+    if(col < max_col_maze - 1){
+      adjacentSelected |= checkFunction(row, col + 1)
+    }
+
+    adjacentSelected |= checkFunction(row, col)
+
+    return adjacentSelected
+  }
+  
+
+
+
+
+  document.querySelector(".modal > button").addEventListener("click", ()=>{
+    document.querySelector(".modal").classList.add("hidden");
+    document.querySelector(".modal-background").classList.add("hidden");
+    makeMaze();
+
+  });
+
+</script>
+
+</html>
