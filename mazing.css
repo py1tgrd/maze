@@ -1,6 +1,6 @@
 
 :root{
-    --size:3rem;
+    --size:2rem;
     padding: 0px;
     margin:0px;
     box-sizing: border-box;
@@ -195,6 +195,33 @@ html,body{
   margin-top: 2rem;
 
 }
+
+.button-group{
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+}
+
+.button-group > button{
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5pt;
+  border:none;
+  box-shadow: 3px 1px 3px #aaa;
+  font-size: 1.5rem;
+}
+
+
+
+
+#easy{background-color: lightgreen;}
+#hard{background-color: lightblue;}
+
+#easy:active{background-color: green;}
+#hard:active{background-color: blue;}
+
+
+
 
 .hidden{
   display: none;
