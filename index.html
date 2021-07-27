@@ -2,6 +2,9 @@
 Red dragging a bit buggy - investigate touch.js more
 https://gist.github.com/zerobytes/677410f1e6ed33d133aa016422a8c706
 
+Also means that sometimes the pop-up needs to be pressed twice
+
+Doesn't pick up the option properly on load
  -->
 
 
@@ -55,7 +58,7 @@ const maze_container = document.querySelector("#maze_container")
 
 const getDifficulty = () =>{
   let t_difficulty = localStorage.getItem('difficulty')
-  if(t_difficulty.length >0){
+  if(t_difficulty !== null ){
     difficulty = t_difficulty
   }
 }
